@@ -37,8 +37,6 @@ class Player:
         self._vlc_wrapper = vlc.MediaPlayer(player.sources[0].path)
         self._vlc_wrapper.play()
         time.sleep(1)
-        while self._vlc_wrapper.is_playing():
-            pass
 
     # Play, Pause, Stop, Volume, Mute, Change Source
     def play(self):
