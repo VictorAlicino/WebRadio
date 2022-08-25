@@ -104,19 +104,19 @@ if __name__ == "__main__":
     player.begin(config["speaker_config"]["sources"])
 
     # Setting speaker
-    speaker.name = config["name"]
-    player.set_volume(config["volume"])
-    player.mute(config["mute"])
+    speaker.name = config["speaker_config"]["name"]
+    player.set_volume(config["speaker_config"]["volume"])
+    player.mute(config["speaker_config"]["mute"])
 
     # MQTT
-    mqtt_client = mqtt.Client(config["speaker"]["name"])
+    mqtt_client = mqtt.Client(config["speaker_config"]["name"])
     # If you want to use a specific username and password:
-    if config["mqtt"]["username"] and config["mqtt"]["password"]:
-        mqtt_client.username_pw_set(config["mqtt"]["username"], config["mqtt"]["password"])
+    if config["mqtt_config"]["username"] and config["mqtt_config"]["password"]:
+        mqtt_client.username_pw_set(config["mqtt_config"]["username"], config["mqtt_config"]["password"])
     # Connecting to the server
-    mqtt_client.connect(config["mqtt"]["server"], config["mqtt"]["port"], 60)
+    mqtt_client.connect(config["mqtt_config"]["server"], config["mqtt_config"]["port"], 60)
     # Subscribing to the topic
-    mqtt_client.subscribe(config["mqtt"]["topic"])
+    mqtt_client.subscribe(config["mqtt_config"]["topic"])
     # Setting callbacks
     mqtt_client.on_message = on_mqtt_message
 
