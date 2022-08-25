@@ -113,11 +113,11 @@ if __name__ == "__main__":
     # If you want to use a specific username and password:
     if config["mqtt_config"]["user"] and config["mqtt_config"]["password"]:
         mqtt_client.username_pw_set(config["mqtt_config"]["user"], config["mqtt_config"]["password"])
+    # Setting callbacks
+    mqtt_client.on_message = on_mqtt_message
     # Connecting to the server
     mqtt_client.connect(config["mqtt_config"]["server"], config["mqtt_config"]["port"], 60)
     # Subscribing to the topic
     mqtt_client.subscribe(config["mqtt_config"]["topic"])
-    # Setting callbacks
-    mqtt_client.on_message = on_mqtt_message
 
     mqtt_client.loop_forever()
