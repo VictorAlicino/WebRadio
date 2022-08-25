@@ -101,7 +101,7 @@ if __name__ == "__main__":
         config = json.load(f)
 
     speaker = Speaker()
-    player.begin(config["sources"])
+    player.begin(config["speaker_config"]["sources"])
 
     # Setting speaker
     speaker.name = config["name"]
