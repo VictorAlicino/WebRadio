@@ -112,7 +112,7 @@ if __name__ == "__main__":
     mqtt_client = mqtt.Client(config["speaker_config"]["name"])
     # If you want to use a specific username and password:
     if config["mqtt_config"]["username"] and config["mqtt_config"]["password"]:
-        mqtt_client.username_pw_set(config["mqtt_config"]["username"], config["mqtt_config"]["password"])
+        mqtt_client.username_pw_set(config["mqtt_config"]["user"], config["mqtt_config"]["password"])
     # Connecting to the server
     mqtt_client.connect(config["mqtt_config"]["server"], config["mqtt_config"]["port"], 60)
     # Subscribing to the topic
