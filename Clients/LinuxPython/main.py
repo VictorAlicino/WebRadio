@@ -15,12 +15,15 @@ class Source:
         self.path = path
 
 
-def add_source(source):
+
+def add_source(source: Source):
     temp_config: json = None
     with open("config.json", "r") as f_temp:
         temp_config = json.load(f_temp)
 
-    temp_config["speaker_config"]["sources"].append(source)
+    temp_config["speaker_config"]["sources"].append(
+        {"name": source.name, "type": source.source_type, "path": source.path}
+    )
 
     with open("config.json", "w") as f_temp:
         json.dump(temp_config, f_temp)
