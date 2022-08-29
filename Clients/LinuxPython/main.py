@@ -15,7 +15,6 @@ class Source:
         self.path = path
 
 
-
 def add_source(source: Source):
     temp_config: json = None
     with open("config.json", "r") as f_temp:
@@ -24,6 +23,20 @@ def add_source(source: Source):
     temp_config["speaker_config"]["sources"].append(
         {"name": source.name, "type": source.source_type, "path": source.path}
     )
+
+    with open("config.json", "w") as f_temp:
+        json.dump(temp_config, f_temp)
+
+
+def remove_source(source_name: str):
+    temp_config: json = None
+    with open("config.json", "r") as f_temp:
+        temp_config = json.load(f_temp)
+
+    for i in range(len(temp_config["speaker_config"]["sources"])):
+        if temp_config["speaker_config"]["sources"][i]["name"] == source_name:
+            temp_config["speaker_config"]["sources"].pop(i)
+            break
 
     with open("config.json", "w") as f_temp:
         json.dump(temp_config, f_temp)
@@ -59,7 +72,6 @@ class Speaker:
 
     def set_source(self, source):
         self._source = source
-        print(f'Now playing "{source.name}"')
 
     def get_volume(self):
         return self._volume
@@ -129,7 +141,7 @@ class Player:
         speaker.set_source(source)
         self._vlc_wrapper.play()
         time.sleep(1)
-        print("🔁 Source changed to", source.name)
+        print("🔄 Source changed to", source.name)
 
 
 # MQTT Message handler
@@ -170,14 +182,16 @@ def on_mqtt_message(client, userdata, msg):
         source_data = decoded_msg.split("=")[1].split(";")
         player.sources.append(Source(source_data[0], source_data[1], source_data[2]))
         add_source(Source(source_data[0], source_data[1], source_data[2]))
-        print("Added source", source_data[0])
+        print(f"🔄 Added source {source_data[0]} ({source_data[2]})")
 
     elif decoded_msg.startswith("remove_source="):
         for source in player.sources:
             if source.name == decoded_msg.split("=")[1]:
                 player.sources.remove(source)
-                print("Removed source", source.name)
+                print("⏏️ Removed source", source.name)
                 break
+
+        remove_source(decoded_msg.split("=")[1])
 
 
 # Global variables
