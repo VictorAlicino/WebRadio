@@ -184,7 +184,7 @@ speaker = Speaker()
 if __name__ == "__main__":
     # Configuration
     # Loading configuration file
-    print("Loading configuration file {")
+    print("<==Loading configuration file==>")
     with open("config.json", "r") as f:
         config = json.load(f)
 
@@ -209,5 +209,5 @@ if __name__ == "__main__":
     # Cleaning the variables
     del config
 
-    print("} Configurations loaded")
+    print("<==Configurations loaded==>")
     mqtt_client.loop_forever()
