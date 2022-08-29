@@ -122,7 +122,7 @@ class Player:
             print("🔈 Mute disabled")
 
     def change_source(self, source: Source):
-        self._vlc_wrapper.set_media(source.path)
+        self._vlc_wrapper.set_media(vlc.Media(source.path))
         speaker.set_source(source)
         self._vlc_wrapper.play()
         time.sleep(1)
@@ -166,6 +166,7 @@ def on_mqtt_message(client, userdata, msg):
     elif decoded_msg.startswith("add_source="):
         source_data = decoded_msg.split("=")[1].split(";")
         player.sources.append(Source(source_data[0], source_data[1], source_data[2]))
+        add_source(Source(source_data[0], source_data[1], source_data[2]))
         print("Added source", source_data[0])
 
     elif decoded_msg.startswith("remove_source="):
