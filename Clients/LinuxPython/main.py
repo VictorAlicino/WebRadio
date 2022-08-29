@@ -79,7 +79,6 @@ class Player:
 
         for source in list_of_sources:
             self.sources.append(Source(source["name"], source["type"], source["path"]))
-            print("Added source", source["name"])
 
         self._vlc_wrapper.set_media(vlc.Media(self.sources[0].path))
         speaker.set_source(player.sources[0])
@@ -189,7 +188,6 @@ if __name__ == "__main__":
 
     # Setting speaker
     speaker.name = config["speaker_config"]["name"]
-    print(config['speaker_config']['sources'])
     player.begin(config["speaker_config"]["sources"])
     player.mute(config["speaker_config"]["mute"])
     player.set_volume(config["speaker_config"]["volume"])
