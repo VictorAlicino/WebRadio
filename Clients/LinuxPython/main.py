@@ -111,6 +111,7 @@ class Player:
     def dec_volume(self):
         self._vlc_wrapper.audio_set_volume(self._vlc_wrapper.audio_get_volume() - 20)
         speaker.set_volume(self._vlc_wrapper.audio_get_volume())
+        print("🔉 Volume decreased in 20")
 
     def mute(self, mute=False):
         self._vlc_wrapper.audio_set_mute(mute)
@@ -143,7 +144,6 @@ def on_mqtt_message(client, userdata, msg):
         player.inc_volume()
 
     elif decoded_msg == "volume-":
-        print("🔉︎ Volume decreased in 20")
         player.dec_volume()
 
     elif decoded_msg.startswith("volume="):
@@ -189,6 +189,7 @@ if __name__ == "__main__":
 
     # Setting speaker
     speaker.name = config["speaker_config"]["name"]
+    print(config['speaker_config']['sources'])
     player.begin(config["speaker_config"]["sources"])
     player.mute(config["speaker_config"]["mute"])
     player.set_volume(config["speaker_config"]["volume"])
