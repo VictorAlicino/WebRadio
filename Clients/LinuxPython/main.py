@@ -56,6 +56,7 @@ class Speaker:
 
     def set_source(self, source):
         self._source = source
+        print(f'Now playing "{source.name}"')
 
     def get_volume(self):
         return self._volume
@@ -183,6 +184,7 @@ speaker = Speaker()
 if __name__ == "__main__":
     # Configuration
     # Loading configuration file
+    print("Loading configuration file {")
     with open("config.json", "r") as f:
         config = json.load(f)
 
@@ -207,4 +209,5 @@ if __name__ == "__main__":
     # Cleaning the variables
     del config
 
+    print("} Configurations loaded")
     mqtt_client.loop_forever()
