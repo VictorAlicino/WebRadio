@@ -18,7 +18,7 @@ class Source:
 def add_source(source):
     temp_config: json = None
     with open("config.json", "r") as f_temp:
-        temp_config = json.load(f)
+        temp_config = json.load(f_temp)
 
     temp_config["speaker_config"]["sources"].append(source)
 
@@ -36,7 +36,7 @@ class Speaker:
         self._volume = volume
         temp_config: json = None
         with open("config.json", "r") as f_temp:
-            temp_config = json.load(f)
+            temp_config = json.load(f_temp)
 
         temp_config["speaker_config"]["volume"] = self._volume
 
@@ -47,7 +47,7 @@ class Speaker:
         self._mute = mute
         temp_config: json = None
         with open("config.json", "r") as f_temp:
-            temp_config = json.load(f)
+            temp_config = json.load(f_temp)
 
         temp_config["speaker_config"]["mute"] = self._mute
 
