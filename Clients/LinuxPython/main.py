@@ -100,7 +100,7 @@ class Player:
 
     def set_volume(self, volume: int):
         self._vlc_wrapper.audio_set_volume(volume)
-        speaker.set_volume(self._vlc_wrapper.audio_get_volume())
+        speaker.set_volume(volume)
         print("🎚️ Volume set to", volume)
 
     def inc_volume(self):
@@ -115,7 +115,7 @@ class Player:
 
     def mute(self, mute=False):
         self._vlc_wrapper.audio_set_mute(mute)
-        speaker.set_mute(self._vlc_wrapper.audio_get_mute())
+        speaker.set_mute(mute)
         if speaker.is_muted():
             print("🔇 Mute enabled")
         else:
@@ -132,7 +132,6 @@ class Player:
 # MQTT Message handler
 def on_mqtt_message(client, userdata, msg):
     decoded_msg: str = msg.payload.decode("utf-8")
-    print("Received message:", decoded_msg)
 
     if decoded_msg == "play":
         player.play()
