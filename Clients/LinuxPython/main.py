@@ -81,8 +81,7 @@ class Player:
             self.sources.append(Source(source["name"], source["type"], source["path"]))
             print("Added source", source["name"])
 
-        print(self.sources[0].path)
-        self._vlc_wrapper.set_media(self.sources[0].path)
+        self._vlc_wrapper.set_media(vlc.Media(self.sources[0].path))
         speaker.set_source(player.sources[0])
         self._vlc_wrapper.play()
         time.sleep(1)
