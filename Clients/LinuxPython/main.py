@@ -106,12 +106,12 @@ class Player:
     def inc_volume(self):
         self._vlc_wrapper.audio_set_volume(self._vlc_wrapper.audio_get_volume() + 20)
         speaker.set_volume(self._vlc_wrapper.audio_get_volume())
-        print("🔊︎ Volume increased in 20")
+        print("🔊︎ Volume increased in 10, now's at ", self._vlc_wrapper.audio_get_volume())
 
     def dec_volume(self):
         self._vlc_wrapper.audio_set_volume(self._vlc_wrapper.audio_get_volume() - 20)
         speaker.set_volume(self._vlc_wrapper.audio_get_volume())
-        print("🔉 Volume decreased in 20")
+        print("🔉 Volume decreased in 10, now's at ", self._vlc_wrapper.audio_get_volume())
 
     def mute(self, mute=False):
         self._vlc_wrapper.audio_set_mute(mute)
@@ -208,5 +208,6 @@ if __name__ == "__main__":
     # Cleaning the variables
     del config
 
-    print("\n-----Configurations loaded------")
+    print("\n-----Configurations loaded------\n")
+    print("--------------LOGS--------------\n")
     mqtt_client.loop_forever()
