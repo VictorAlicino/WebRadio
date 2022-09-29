@@ -3,6 +3,7 @@ import time
 import json
 import paho.mqtt.client as mqtt
 
+config_path = "/boot/config.json"
 
 class Source:
     name = ""
@@ -17,20 +18,20 @@ class Source:
 
 def add_source(source: Source):
     temp_config: json = None
-    with open("config.json", "r") as f_temp:
+    with open(config_path, "r") as f_temp:
         temp_config = json.load(f_temp)
 
     temp_config["speaker_config"]["sources"].append(
         {"name": source.name, "type": source.source_type, "path": source.path}
     )
 
-    with open("config.json", "w") as f_temp:
+    with open(config_path, "w") as f_temp:
         json.dump(temp_config, f_temp)
 
 
 def remove_source(source_name: str):
     temp_config: json = None
-    with open("config.json", "r") as f_temp:
+    with open(config_path, "r") as f_temp:
         temp_config = json.load(f_temp)
 
     for i in range(len(temp_config["speaker_config"]["sources"])):
@@ -38,7 +39,7 @@ def remove_source(source_name: str):
             temp_config["speaker_config"]["sources"].pop(i)
             break
 
-    with open("config.json", "w") as f_temp:
+    with open(config_path, "w") as f_temp:
         json.dump(temp_config, f_temp)
 
 
@@ -51,23 +52,23 @@ class Speaker:
     def set_volume(self, volume):
         self._volume = volume
         temp_config: json = None
-        with open("config.json", "r") as f_temp:
+        with open(config_path, "r") as f_temp:
             temp_config = json.load(f_temp)
 
         temp_config["speaker_config"]["volume"] = self._volume
 
-        with open("config.json", "w") as f_temp:
+        with open(config_path, "w") as f_temp:
             json.dump(temp_config, f_temp)
 
     def set_mute(self, mute):
         self._mute = mute
         temp_config: json = None
-        with open("config.json", "r") as f_temp:
+        with open(config_path, "r") as f_temp:
             temp_config = json.load(f_temp)
 
         temp_config["speaker_config"]["mute"] = self._mute
 
-        with open("config.json", "w") as f_temp:
+        with open(config_path, "w") as f_temp:
             json.dump(temp_config, f_temp)
 
     def set_source(self, source):
@@ -202,7 +203,7 @@ if __name__ == "__main__":
     # Configuration
     # Loading configuration file
     print("---Loading configuration file---\n")
-    with open("config.json", "r") as f:
+    with open(config_path, "r") as f:
         config = json.load(f)
 
     # Setting speaker
