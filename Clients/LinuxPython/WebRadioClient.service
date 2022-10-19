@@ -6,7 +6,7 @@ After=multi-user.target
 Type=simple
 User=labiot
 Restart=always
-ExecStart=/usr/bin/python3 /home/pi/WebRadio/Clients/LinuxPython/main.py
+ExecStart=/usr/bin/python3 /home/labiot/WebRadio/Clients/LinuxPython/main.py
 
 [Install]
 WantedBy=multi-user.target
