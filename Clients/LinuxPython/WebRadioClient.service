@@ -1,9 +1,10 @@
 [Unit]
-Description=Web Radio Player made with love by LabIoT
+Description=Web Radio Player by LabIoT
 After=multi-user.target
 
 [Service]
 Type=simple
+User=labiot
 Restart=always
 ExecStart=/usr/bin/python3 /home/pi/WebRadio/Clients/LinuxPython/main.py
 
