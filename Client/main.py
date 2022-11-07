@@ -1,9 +1,11 @@
 import vlc
 import time
 import json
+import os
 import paho.mqtt.client as mqtt
 
-config_path = "/home/labiot/config.json"
+config_path = f"/home/{os.getlogin()}/config.json"  # Path to config file
+
 
 class Source:
     name = ""
