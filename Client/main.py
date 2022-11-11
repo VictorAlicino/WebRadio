@@ -8,6 +8,21 @@ config_path = f"/home/{os.getlogin()}/config.json"  # Path to config file
 
 
 class Source:
+    """
+    Class to represent the data structure of an audio source
+
+    ...
+
+    Attributes
+    ----------
+    name : str
+        The name of the source
+    source_type : str
+        The type of the source (file, url, etc.)
+    path : str
+        The path to the source
+    """
+
     name = ""
     source_type = ""
     path = ""
@@ -19,33 +34,81 @@ class Source:
 
 
 def add_source(source: Source):
-    temp_config: json = None
-    with open(config_path, "r") as f_temp:
+    """
+    Add a new source to the config file
+
+    Parameters
+    ----------
+    source : Source
+        The source to add
+    """
+
+    temp_config: json = None # Temporary config file
+    with open(config_path, "r") as f_temp: # Open config file
         temp_config = json.load(f_temp)
 
     temp_config["speaker_config"]["sources"].append(
         {"name": source.name, "type": source.source_type, "path": source.path}
-    )
+    ) # Add source to config file
 
-    with open(config_path, "w") as f_temp:
+    with open(config_path, "w") as f_temp: # Write config file
         json.dump(temp_config, f_temp)
 
 
 def remove_source(source_name: str):
-    temp_config: json = None
-    with open(config_path, "r") as f_temp:
+    """
+    Remove a source from the config file
+
+    Parameters
+    ----------
+    source_name : str
+        The name of the source to remove
+    """
+    
+    temp_config: json = None # Temporary config file
+    with open(config_path, "r") as f_temp: # Open config file
         temp_config = json.load(f_temp)
 
-    for i in range(len(temp_config["speaker_config"]["sources"])):
+    for i in range(len(temp_config["speaker_config"]["sources"])): # Loop through sources
         if temp_config["speaker_config"]["sources"][i]["name"] == source_name:
-            temp_config["speaker_config"]["sources"].pop(i)
+            temp_config["speaker_config"]["sources"].pop(i) # Remove source from config file
             break
 
-    with open(config_path, "w") as f_temp:
+    with open(config_path, "w") as f_temp: # Write config file
         json.dump(temp_config, f_temp)
 
 
 class Speaker:
+    """
+    Class to control the speaker
+    ...
+
+    Attributes
+    ----------
+    _volume : int
+        Speaker volume
+    _mute : bool
+        Whether the speaker is muted or not
+    _source : str
+        The source active on the speaker
+
+    Methods
+    -------
+    set_volume(volume)
+        Set the volume of the speaker
+    set_mute(mute)
+        Set whether the speaker is muted or not
+    set_source(source)
+        Set the source of the speaker
+    get_volume()
+        Get the volume of the speaker
+    is_muted()
+        Get whether the speaker is muted or not
+    get_source()
+        Get the source of the speaker
+
+    """
+
     name = ""
     _volume = None
     _mute = False
@@ -87,6 +150,30 @@ class Speaker:
 
 
 class Player:
+    """
+    VLC player wrapper
+    ...
+
+    Attributes
+    ----------
+    _vlc_wrapper : vlc.MediaPlayer
+        The VLC player wrapper
+    sources : list
+        The list of sources
+
+    Methods
+    -------
+    begin(sources)
+        Begin the player
+    play()
+        Play the current source
+    pause()
+        Pause the current source
+    stop()
+        Stop the current source
+    set_volume(volume)
+        Set the volume of the current source
+    """
     sources: list[Source] = []
     _vlc_wrapper: vlc.MediaPlayer = None
 
