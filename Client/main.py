@@ -236,6 +236,18 @@ class Player:
 
 # MQTT Message handler
 def on_mqtt_message(client, userdata, msg):
+    """
+    MQTT message handler
+
+    Parameters
+    ----------
+    client : paho.mqtt.client.Client
+        The MQTT client
+    userdata : dict
+        The userdata
+    msg : paho.mqtt.client.MQTTMessage
+        The MQTT message
+    """
     decoded_msg: str = msg.payload.decode("utf-8")
 
     if decoded_msg == "play":
