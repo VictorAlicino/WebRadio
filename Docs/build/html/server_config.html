@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Server Configuration &mdash; Web Radio 2022 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Server Installation" href="server_install.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Web Radio
+            <img src="_static/webradio-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="server_install.html">Server Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Server Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#icecast2">Icecast2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nginx">NGINX</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#liquidsoap">Liquidsoap</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Web Radio</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Server Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/server_config.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="server-configuration">
+<h1>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this heading"></a></h1>
+<section id="icecast2">
+<h2>Icecast2<a class="headerlink" href="#icecast2" title="Permalink to this heading"></a></h2>
+<p>First we have to configure the Icecast.</p>
+<p>Icecast configuration is done by a XML file located in <code class="docutils literal notranslate"><span class="pre">/etc/icecast2/icecast.xml</span></code>.</p>
+<p>Choose your editor of choice and open this file (you will need sudo).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo nano /etc/icecast2/icecast.xml
+</pre></div>
+</div>
+<p>Look for this line:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;listen-socket&gt;</span>
+    <span class="nt">&lt;port&gt;</span>8000<span class="nt">&lt;/port&gt;</span>
+    <span class="cm">&lt;!-- &lt;bind-address&gt;127.0.0.1&lt;/bind-address&gt; --&gt;</span>
+    <span class="cm">&lt;!-- &lt;shoutcast-mount&gt;/stream&lt;/shoutcast-mount&gt; --&gt;</span>
+<span class="nt">&lt;/listen-socket&gt;</span>
+</pre></div>
+</div>
+<p>You can change the <code class="docutils literal notranslate"><span class="pre">&lt;port&gt;</span></code> parameter to any port you want to be the Icecast listening port, this will be
+used by Liquidsoap for send the stream to Icecast.</p>
+<p>To change the passwords you have to look for the authentication line, which look like this:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;authentication&gt;</span>
+    <span class="nt">&lt;source-password&gt;</span>hackme<span class="nt">&lt;/source-password&gt;</span>
+    <span class="nt">&lt;relay-password&gt;</span>hackme<span class="nt">&lt;/relay-password&gt;</span>
+    <span class="nt">&lt;admin-user&gt;</span>admin<span class="nt">&lt;/admin-user&gt;</span>
+    <span class="nt">&lt;admin-password&gt;</span>hackme<span class="nt">&lt;/admin-password&gt;</span>
+<span class="nt">&lt;/authentication&gt;</span>
+</pre></div>
+</div>
+<p>After that you can restart Icecast to load de changes.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo service icecast2 restart
+</pre></div>
+</div>
+<section id="nginx">
+<h3>NGINX<a class="headerlink" href="#nginx" title="Permalink to this heading"></a></h3>
+<p>If you want to use NGINX as a reverse proxy, you can create a new NGINX configuration file for Icecast.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo nano /etc/nginx/conf.d/icecast.conf
+</pre></div>
+</div>
+<p>And add this content:</p>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">YOUR_URL_HERE</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://localhost:8000</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Save the file and run the following command to test the configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo nginx -t
+</pre></div>
+</div>
+<p>If the configuration is correct, you can restart NGINX:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo systemctl restart nginx
+</pre></div>
+</div>
+</section>
+</section>
+<section id="liquidsoap">
+<h2>Liquidsoap<a class="headerlink" href="#liquidsoap" title="Permalink to this heading"></a></h2>
+<p>For liquidsoap to work properly, you will have to modify some script lines.</p>
+<p>1. Inside the <code class="docutils literal notranslate"><span class="pre">Server/scripts/</span></code> folder, locate the <code class="docutils literal notranslate"><span class="pre">streamer_config.liq</span></code> file, this file contains the streamer
+information, in our case, the Icecast.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">streamer_config.liq</span></code> modify the following lines:</p>
+<div class="highlight-OCaml notranslate"><div class="highlight"><pre><span></span><span class="n">streamer_host</span> <span class="o">=</span> <span class="s2">&quot;localhost&quot;</span>
+<span class="n">streamer_port</span> <span class="o">=</span> <span class="mi">8000</span>
+<span class="n">streamer_pass</span> <span class="o">=</span> <span class="s2">&quot;hackme&quot;</span>
+</pre></div>
+</div>
+<p>Change the <code class="docutils literal notranslate"><span class="pre">streamer_host</span></code> to the IP of your server, the <code class="docutils literal notranslate"><span class="pre">streamer_port</span></code> to the port you configured in Icecast
+and the <code class="docutils literal notranslate"><span class="pre">streamer_pass</span></code> to the password you configured in Icecast.</p>
+<ol class="arabic simple" start="2">
+<li><p>Inside the <code class="docutils literal notranslate"><span class="pre">Server/scripts/</span></code> folder, locate the <code class="docutils literal notranslate"><span class="pre">main.liq</span></code> file, this is the main file of the script.</p></li>
+</ol>
+<div class="highlight-OCaml notranslate"><div class="highlight"><pre><span></span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">set</span><span class="o">(</span><span class="s2">&quot;PATH-TO-LOG/log/history.log&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>On line 4, change the <code class="docutils literal notranslate"><span class="pre">PATH-TO-LOG</span></code> string to the desired path of the log file.</p>
+<div class="highlight-OCaml notranslate"><div class="highlight"><pre><span></span><span class="n">playlists</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">ls</span><span class="o">(</span><span class="s2">&quot;PATH-TO-PLAYLISTS&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>On line 9, change the <code class="docutils literal notranslate"><span class="pre">PATH-TO-PLAYLITS</span></code> string to the desired path of the playlists folders.</p>
+<p>Locate the file <code class="docutils literal notranslate"><span class="pre">radio.liq</span></code>,</p>
+<div class="highlight-OCaml notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">mksafe</span><span class="o">(</span><span class="n">playlist</span><span class="o">(</span><span class="s2">&quot;PATH-TO-PLAYLISTS/#{list}&quot;</span><span class="o">))</span>
+</pre></div>
+</div>
+<p>on line 9, change the <code class="docutils literal notranslate"><span class="pre">PATH-TO-PLAYLISTS</span></code> with the same path to the playlists folder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Inside the playlists folders, every different folder will generate a different stream with the files of the folder.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="server_install.html" class="btn btn-neutral float-left" title="Server Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Victor Alicino.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

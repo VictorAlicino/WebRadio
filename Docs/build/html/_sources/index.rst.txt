@@ -19,10 +19,11 @@ packages and play the audio.
    comes with no garanties.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    server_install
+   server_config
 
 Indices and tables
 ==================

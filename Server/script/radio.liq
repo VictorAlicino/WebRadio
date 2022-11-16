@@ -6,7 +6,7 @@
 #   Unit()
 def generate_sources_by_playlists(list)
     log.important("Playing #{list}.")
-    s = mksafe(playlist("/home/pi/WebRadio/Playlists/#{list}"))
+    s = mksafe(playlist("PATH-TO-PLAYLISTS/#{list}"))
     ignore(
         output.icecast(
             %vorbis,
