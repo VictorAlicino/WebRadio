@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Server Installation &#8212; Web Radio 2022 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Web Radio Documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="server-installation">
+<h1>Server Installation<a class="headerlink" href="#server-installation" title="Permalink to this heading">¶</a></h1>
+<p>This document describes how to install the Web Radio application on any computer running Linux (prefferly Debian based distros).</p>
+<p>For the server, we are going to need Icecast and Liqudisoap, and optionally we can also use Nginx as a reverse proxy.</p>
+<section id="icecast-2">
+<h2>Icecast 2<a class="headerlink" href="#icecast-2" title="Permalink to this heading">¶</a></h2>
+<p>The official documentation for Icecast can be found on <a class="reference external" href="https://icecast.org/docs/icecast-trunk/">https://icecast.org/docs/icecast-trunk/</a></p>
+<p>For Linux users with Debian based distros, I highly recommend using the Advanced Package Tool.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install icecast2
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure to use icecast2 version 2.4.4 or higher</p>
+</div>
+</section>
+<section id="liquidsoap">
+<h2>Liquidsoap<a class="headerlink" href="#liquidsoap" title="Permalink to this heading">¶</a></h2>
+<p>The official documentation for Liquidsoap can be found on <a class="reference external" href="https://www.liquidsoap.info/doc-2.1.2/">https://www.liquidsoap.info/doc-2.1.2/</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This documentation version can only be trusted for Liquidsoap version 2.1.2 or above</p>
+</div>
+<p>Liquidsoap can also be installed via Advanced Package Tool, but the official documentation
+recommends installing it using the OCaml Package Manager (OPAM), so, let’s install it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Liquidsoap official documentation also provides a docker container, see more at <a class="reference external" href="https://www.liquidsoap.info/doc-2.1.2/install.html#docker">https://www.liquidsoap.info/doc-2.1.2/install.html#docker</a></p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install opam
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure your OPAM is at least version 2.0.</p>
+<p>Make sure your OCaml is at least version 4.12.0</p>
+</div>
+<p>For Liquidsoap to work properly you will need some dependencies, you can install all of them
+in a single command, but make sure to get yourself some coffee, this is going to take a while.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a list of all the dependencies available, run opam info liquidsoap</p>
+</div>
+<p>First, make sure you have all the external dependencies needed in order to correct install the
+dependencies you want, this can be accomplished by running the opam depext command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>opam depext taglib mad lame vorbis cry samplerate liquidsoap
+</pre></div>
+</div>
+<p>After that you can install,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>opam install taglib mad lame vorbis cry samplerate liquidsoap
+</pre></div>
+</div>
+<p>For Liquidsoap to be able to run as daemon, we need the liquidsoap-daemon package.
+Clone the liquidsoap-daemon repositiry in a convenient path.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/savonet/liquidsoap-daemon.git
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Web Radio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Server Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#icecast-2">Icecast 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#liquidsoap">Liquidsoap</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Web Radio Documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Victor Alicino.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/server_install.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

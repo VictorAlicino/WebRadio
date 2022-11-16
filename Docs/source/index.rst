@@ -22,6 +22,8 @@ packages and play the audio.
    :maxdepth: 2
    :caption: Contents:
 
+   server_install
+
 Indices and tables
 ==================
 
