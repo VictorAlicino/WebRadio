@@ -52,6 +52,8 @@ git clone https://github.com/savonet/liquidsoap-daemon.git
 
 *Server Configuration*
 
+---Icecast 2---
+
 First we have to configure the Icecast.
 
 Icecast configuration is done by a xml file located in /etc/icecast2/icecast.xml
@@ -69,3 +71,76 @@ Look for this line:
 
 you can change the <port> parameter to any port you want to be the Icecast listening port, this will be
 used by Liquidsoap for send the stream to Icecast
+
+To change the passwords you have to look for the authentication line, which look like this:
+
+ <authentication>
+   <!-- Sources log in with username 'source' -->
+   <source-password>12345678</source-password>
+   <!-- Relays log in with username 'relay' -->
+   <relay-password>12345</relay-password>
+
+   <!-- Admin logs in with the username given below -->
+   <admin-user>admin</admin-user>
+   <admin-password>admin123</admin-password>
+ </authentication>
+
+After that you can restart Icecast to load de changes
+
+sudo systemctl restart icecast2
+
+---NGINX---
+
+If you want to use NGINX as a reverse proxy, you can create a new NGINX configuration file for Icecast
+
+sudo nano /etc/nginx/conf.d/icecast.conf
+
+Write the following to the file:
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name YOUR_URL_HERE;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Server $host;
+
+    location / {
+        proxy_set_header Accept-Encoding "";
+        proxy_pass http://127.0.0.1:8000/;
+        sub_filter_types application/xspf+xml audio/x-mpegurl audio/x-vclt text/css text/html text/xml;
+        sub_filter ':8000/' '/';
+        sub_filter '@localhost' '@YOUR_URL_HERE';
+        sub_filter 'localhost' $host;
+        sub_filter 'Mount Point ' $host;
+    }
+}
+
+Save the file and run the following command to check for errors
+
+sudo nginx -t
+
+Restart NGINX
+
+sudo systemctl restart nginx
+
+---Liquidsoap---
+
+For liquidsoap to work properly, you will have to modify some script lines
+
+Inside the Server/scripts/ folder, locate the "streamer_config.liq" file, this file contains the streamer 
+information, in our case, the Icecast.
+
+In "streamer_config.liq" modify the following lines:
+
+streamer_host = "localhost"
+streamer_port = 8000
+streamer_pass = "hackme"
+
+Change the streamer_host variable to the Icecast IP, if it's in the same machine, you leave it as "localhost".
+Change the streamer_port variable to the port you chose in Icecast.
+Change the streamer_pass to the Icecast source password.
+
