@@ -4,9 +4,9 @@ After=multi-user.target
 
 [Service]
 Type=simple
-User=labiot
+User=
 Restart=always
-ExecStart=/usr/bin/python3 /home/labiot/WebRadio/Clients/LinuxPython/main.py
+ExecStart=/usr/bin/python3 ~/WebRadio/Clients/main.py
 
 [Install]
 WantedBy=multi-user.target

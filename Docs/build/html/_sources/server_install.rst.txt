@@ -1,9 +1,10 @@
 Server Installation
 ===================
 
-This document describes how to install the Web Radio application on any computer running Linux (prefferly Debian based distros).
+This document describes how to install the Web Radio application on any computer running Linux
+(preferably Debian based distros).
 
-For the server, we are going to need Icecast and Liqudisoap, and optionally we can also use Nginx as a reverse proxy.
+For the server, we are going to need Icecast and Liquidsoap, and optionally we can also use Nginx as a reverse proxy.
 
 Icecast 2
 ---------
@@ -34,7 +35,8 @@ recommends installing it using the OCaml Package Manager (OPAM), so, let's insta
 
 .. note::
 
-    Liquidsoap official documentation also provides a docker container, see more at https://www.liquidsoap.info/doc-2.1.2/install.html#docker
+    Liquidsoap official documentation also provides a docker container, see more at
+    https://www.liquidsoap.info/doc-2.1.2/install.html#docker
 
 .. code-block:: bash
 
@@ -51,10 +53,10 @@ in a single command, but make sure to get yourself some coffee, this is going to
 
 .. note::
 
-    For a list of all the dependencies available, run opam info liquidsoap
+    For a list of all the dependencies available, run ``opam info liquidsoap``
 
 First, make sure you have all the external dependencies needed in order to correct install the 
-dependencies you want, this can be accomplished by running the opam depext command.
+dependencies you want, this can be accomplished by running the ``opam depext command``.
 
 .. code-block:: bash
 
@@ -67,7 +69,7 @@ After that you can install,
     opam install taglib mad lame vorbis cry samplerate liquidsoap
 
 For Liquidsoap to be able to run as daemon, we need the liquidsoap-daemon package.
-Clone the liquidsoap-daemon repositiry in a convenient path.
+Clone the liquidsoap-daemon repository in a convenient path.
 
 .. code-block:: bash
 

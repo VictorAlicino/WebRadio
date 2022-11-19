@@ -4,7 +4,7 @@ import json
 import os
 import paho.mqtt.client as mqtt
 
-config_path = f"/home/{os.getlogin()}/config.json"  # Path to config file
+config_path = f"/home/{os.getlogin()}/WebRadio/Client/config.json"  # Path to config file
 
 
 class Source:

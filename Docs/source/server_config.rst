@@ -87,43 +87,67 @@ Liquidsoap
 
 For liquidsoap to work properly, you will have to modify some script lines.
 
-1. Inside the ``Server/scripts/`` folder, locate the ``streamer_config.liq`` file, this file contains the streamer 
-information, in our case, the Icecast.
+#. Step 1: Connect to Icecast
 
-In ``streamer_config.liq`` modify the following lines:
+    Inside the ``Server/scripts/`` folder, locate the ``streamer_config.liq`` file, this file contains the streamer
+    information, in our case, the Icecast.
 
-.. code-block:: OCaml
+    In ``streamer_config.liq`` modify the following lines:
 
-    streamer_host = "localhost"
-    streamer_port = 8000
-    streamer_pass = "hackme"
+    .. code-block:: OCaml
 
-Change the ``streamer_host`` to the IP of your server, the ``streamer_port`` to the port you configured in Icecast
-and the ``streamer_pass`` to the password you configured in Icecast.
+        streamer_host = "localhost"
+        streamer_port = 8000
+        streamer_pass = "hackme"
 
-2. Inside the ``Server/scripts/`` folder, locate the ``main.liq`` file, this is the main file of the script.
 
-.. code:: OCaml
+    Change the ``streamer_host`` to the IP of your server, the ``streamer_port`` to the port you configured in Icecast
+    and the ``streamer_pass`` to the password you configured in Icecast.
 
-    log.file.path.set("PATH-TO-LOG/log/history.log")
+#. Step 2: Set the correct paths
 
-On line 4, change the ``PATH-TO-LOG`` string to the desired path of the log file.
+    Inside the ``Server/scripts/`` folder, locate the ``main.liq`` file, this is the main file of the script.
 
-.. code:: OCaml
+    .. code:: OCaml
 
-    playlists = file.ls("PATH-TO-PLAYLISTS")
+        log.file.path.set("PATH-TO-LOG/log/history.log")
 
-On line 9, change the ``PATH-TO-PLAYLITS`` string to the desired path of the playlists folders.
+    On line 4, change the ``PATH-TO-LOG`` string to the desired path of the log file.
 
-Locate the file ``radio.liq``,
+    .. code:: OCaml
 
-.. code:: OCaml
+        playlists = file.ls("PATH-TO-PLAYLISTS")
+
+    On line 9, change the ``PATH-TO-PLAYLITS`` string to the desired path of the playlists folders.
+
+    Locate the file ``radio.liq``,
+
+    .. code:: OCaml
 
         s = mksafe(playlist("PATH-TO-PLAYLISTS/#{list}"))
     
-on line 9, change the ``PATH-TO-PLAYLISTS`` with the same path to the playlists folder.
+    on line 9, change the ``PATH-TO-PLAYLISTS`` with the same path to the playlists folder.
 
-.. note::
+    .. note::
 
-    Inside the playlists folders, every different folder will generate a different stream with the files of the folder.
+        Inside the playlists folders, every different folder will generate a different stream with the files of the folder.
 
+#. Step 3: Make it a daemon
+
+    Copy the ``script`` folder to ``liquidsoap-daemon`` directory.
+
+    .. code-block:: bash
+
+        cp -r PATH-TO-REPOSITORY/Server/script ~/liquidsoap-daemon/
+
+    Run ``daemonize-liquidsoap.sh <script-name>``.
+
+    .. code-block:: bash
+
+        ~/liquidsoap-daemon/daemonize-liquidsoap.sh ~/liquidsoap-daemon/script/webradio.liq
+
+    Start the Systemd service.
+
+    .. code-block:: bash
+
+        sudo systemctl start webradio-liquidsoap

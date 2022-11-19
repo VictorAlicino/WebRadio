@@ -76,8 +76,9 @@
              
   <section id="server-installation">
 <h1>Server Installation<a class="headerlink" href="#server-installation" title="Permalink to this heading"></a></h1>
-<p>This document describes how to install the Web Radio application on any computer running Linux (prefferly Debian based distros).</p>
-<p>For the server, we are going to need Icecast and Liqudisoap, and optionally we can also use Nginx as a reverse proxy.</p>
+<p>This document describes how to install the Web Radio application on any computer running Linux
+(preferably Debian based distros).</p>
+<p>For the server, we are going to need Icecast and Liquidsoap, and optionally we can also use Nginx as a reverse proxy.</p>
 <section id="icecast-2">
 <h2>Icecast 2<a class="headerlink" href="#icecast-2" title="Permalink to this heading"></a></h2>
 <p>The official documentation for Icecast can be found on <a class="reference external" href="https://icecast.org/docs/icecast-trunk/">https://icecast.org/docs/icecast-trunk/</a></p>
@@ -101,7 +102,8 @@
 recommends installing it using the OCaml Package Manager (OPAM), so, let’s install it.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Liquidsoap official documentation also provides a docker container, see more at <a class="reference external" href="https://www.liquidsoap.info/doc-2.1.2/install.html#docker">https://www.liquidsoap.info/doc-2.1.2/install.html#docker</a></p>
+<p>Liquidsoap official documentation also provides a docker container, see more at
+<a class="reference external" href="https://www.liquidsoap.info/doc-2.1.2/install.html#docker">https://www.liquidsoap.info/doc-2.1.2/install.html#docker</a></p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install opam
 </pre></div>
@@ -115,10 +117,10 @@ recommends installing it using the OCaml Package Manager (OPAM), so, let’s ins
 in a single command, but make sure to get yourself some coffee, this is going to take a while.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For a list of all the dependencies available, run opam info liquidsoap</p>
+<p>For a list of all the dependencies available, run <code class="docutils literal notranslate"><span class="pre">opam</span> <span class="pre">info</span> <span class="pre">liquidsoap</span></code></p>
 </div>
 <p>First, make sure you have all the external dependencies needed in order to correct install the
-dependencies you want, this can be accomplished by running the opam depext command.</p>
+dependencies you want, this can be accomplished by running the <code class="docutils literal notranslate"><span class="pre">opam</span> <span class="pre">depext</span> <span class="pre">command</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>opam depext taglib mad lame vorbis cry samplerate liquidsoap
 </pre></div>
 </div>
@@ -127,7 +129,7 @@ dependencies you want, this can be accomplished by running the opam depext comma
 </pre></div>
 </div>
 <p>For Liquidsoap to be able to run as daemon, we need the liquidsoap-daemon package.
-Clone the liquidsoap-daemon repositiry in a convenient path.</p>
+Clone the liquidsoap-daemon repository in a convenient path.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/savonet/liquidsoap-daemon.git
 </pre></div>
 </div>

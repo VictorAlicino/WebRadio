@@ -24,6 +24,7 @@ packages and play the audio.
 
    server_install
    server_config
+   client_install
 
 Indices and tables
 ==================
