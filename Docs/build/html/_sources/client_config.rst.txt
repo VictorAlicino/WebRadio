@@ -1,0 +1,25 @@
+Server Configuration
+====================
+
+Icecast2
+--------
+
+First we have to configure the Icecast.
+
+Icecast configuration is done by a xml file located in ``/etc/icecast2/icecast.xml``.
+
+Choose your editor of choice and open this file (you will need sudo).
+
+.. code-block:: bash
+
+    sudo nano /etc/icecast2/icecast.xml
+
+Look for this line:
+
+.. code-block:: xml
+
+    <listen-socket>
+        <port>8000</port>
+        <!-- <bind-address>127.0.0.1</bind-address> -->
+        <!-- <shoutcast-mount>/stream</shoutcast-mount> -->
+    </listen-socket>

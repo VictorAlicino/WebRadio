@@ -1,0 +1,146 @@
+*Server Install*
+
+For the server, we are going to need Icecast and Liquidsoap, and optionally we can also
+use Nginx for reverse proxy.
+
+---Icecast 2---
+
+The official documentation for Icecast can be found on https://icecast.org/docs/icecast-trunk/
+
+For Linux users with Debian based distros, I highly recommend using the Advanced Package Tool.
+
+sudo apt-get install icecast2
+
+NOTE: Make sure to use icecast2 version x.x.x.x or higher
+
+/** ICECAST CONFIGURATION **/
+
+---Liquidsoap---
+
+The official documentation for Liquidsoap can be found on https://www.liquidsoap.info/doc-2.1.2/
+
+NOTE: This documentation version can only be trusted for Liquidsoap version 2.1.2 or above
+
+Liquidsoap can also be installed via Advanced Package Tool, but the official documentation
+recommends installing it using the OCaml Package Manager (OPAM), so, let's install it.
+
+NOTE: Liquidsoap official documentation also provides a docker container, see more at https://www.liquidsoap.info/doc-2.1.2/install.html#docker
+
+sudo apt-get install opam
+
+NOTE: Make sure your OPAM is at least version 2.0.
+NOTE: Make sure your OCaml is at least version 4.12.0
+
+For Liquidsoap to work properly you will need some dependencies, you can install all of them
+in a single command, but make sure to get yourself some coffee, this is going to take a while.
+
+NOTE: For a list of all the dependencies available, run opam info liquidsoap
+
+First, make sure you have all the external dependencies needed in order to correct install the 
+dependencies you want, this can be accomplished by running the opam depext command.
+
+opam depext taglib mad lame vorbis cry samplerate liquidsoap
+
+After that you can install,
+
+opam install taglib mad lame vorbis cry samplerate liquidsoap
+
+For Liquidsoap to be able to run as daemon, we need the liquidsoap-daemon package.
+Clone the liquidsoap-daemon repositiry in a convenient path.
+
+git clone https://github.com/savonet/liquidsoap-daemon.git
+
+*Server Configuration*
+
+---Icecast 2---
+
+First we have to configure the Icecast.
+
+Icecast configuration is done by a xml file located in /etc/icecast2/icecast.xml
+Choose your editor of choice and open this file (you will need sudo).
+
+sudo nano /etc/icecast2/icecast.xml
+
+Look for this line:
+
+ <listen-socket>
+   <port>8000</port>
+   <!-- <bind-address>127.0.0.1</bind-address> -->
+   <!-- <shoutcast-mount>/stream</shoutcast-mount> -->
+ </listen-socket>
+
+you can change the <port> parameter to any port you want to be the Icecast listening port, this will be
+used by Liquidsoap for send the stream to Icecast
+
+To change the passwords you have to look for the authentication line, which look like this:
+
+ <authentication>
+   <!-- Sources log in with username 'source' -->
+   <source-password>12345678</source-password>
+   <!-- Relays log in with username 'relay' -->
+   <relay-password>12345</relay-password>
+
+   <!-- Admin logs in with the username given below -->
+   <admin-user>admin</admin-user>
+   <admin-password>admin123</admin-password>
+ </authentication>
+
+After that you can restart Icecast to load de changes
+
+sudo systemctl restart icecast2
+
+---NGINX---
+
+If you want to use NGINX as a reverse proxy, you can create a new NGINX configuration file for Icecast
+
+sudo nano /etc/nginx/conf.d/icecast.conf
+
+Write the following to the file:
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name YOUR_URL_HERE;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Server $host;
+
+    location / {
+        proxy_set_header Accept-Encoding "";
+        proxy_pass http://127.0.0.1:8000/;
+        sub_filter_types application/xspf+xml audio/x-mpegurl audio/x-vclt text/css text/html text/xml;
+        sub_filter ':8000/' '/';
+        sub_filter '@localhost' '@YOUR_URL_HERE';
+        sub_filter 'localhost' $host;
+        sub_filter 'Mount Point ' $host;
+    }
+}
+
+Save the file and run the following command to check for errors
+
+sudo nginx -t
+
+Restart NGINX
+
+sudo systemctl restart nginx
+
+---Liquidsoap---
+
+For liquidsoap to work properly, you will have to modify some script lines
+
+Inside the Server/scripts/ folder, locate the "streamer_config.liq" file, this file contains the streamer 
+information, in our case, the Icecast.
+
+In "streamer_config.liq" modify the following lines:
+
+streamer_host = "localhost"
+streamer_port = 8000
+streamer_pass = "hackme"
+
+Change the streamer_host variable to the Icecast IP, if it's in the same machine, you leave it as "localhost".
+Change the streamer_port variable to the port you chose in Icecast.
+Change the streamer_pass to the Icecast source password.
+
