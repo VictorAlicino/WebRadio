@@ -1,0 +1,22 @@
+Installation
+============
+
+This document describes how to install the Web Radio application on any computer running Linux (prefferly Debian based distros).
+
+Server Installation
+-------------------
+
+For the server, we are going to need Icecast and Liqudisoap, and optionally we can also use Nginx as a reverse proxy.
+
+1. Icecast 2
+
+    The official documentation for Icecast can be found on https://icecast.org/docs/icecast-trunk/
+
+    For Linux users with Debian based distros, I highly recommend using the Advanced Package Tool.
+
+    sudo apt-get install icecast2
+
+    .. note::
+    Make sure to use icecast2 version x.x.x.x or higher
+
+    
