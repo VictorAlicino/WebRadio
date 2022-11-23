@@ -71,35 +71,156 @@ All commands can be send to an unique topic, but this topic must be exclusive fo
 <p>The topic is defined in the configuration file and can be changed to whatever you want.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The configuration file is loaded when the client starts. If you change the configuration file, you must restart
+<p>The configuration file is loaded when the client starts.
+If you change the configuration file, you must restart
 the client service.</p>
 </div>
 <p>The client can be controlled via the following commands:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate">play</code>: Alters the player state to play the stream.</p></li>
-<li><p><code class="docutils literal notranslate">pause</code>: Alters the player state to paused.</p></li>
-<li><p><code class="docutils literal notranslate">stop</code>: Stop the stream.</p></li>
-<li><p><code class="docutils literal notranslate">mute</code>: Mute the stream.</p></li>
-<li><p><code class="docutils literal notranslate">unmute</code>: Unmute the stream.</p></li>
-<li><p><code class="docutils literal notranslate">volume+</code>: Increases the volume in 20.</p></li>
-<li><p><code class="docutils literal notranslate">volume-</code>: Decreases the volume in 20.</p></li>
-<li><p><code class="docutils literal notranslate">volume=</code>: Alters the volume of the stream. The volume must be between 0 and 100.</p></li>
-<li><p><code class="docutils literal notranslate">source=</code>: Changes the stream source. The source must be one of the sources defined in the configuration file.</p></li>
-<li><p><code class="docutils literal notranslate">add_source=</code>: Adds a new source to the stream. The source will also be added to the configuration file.</p></li>
-<li><p><code class="docutils literal notranslate">remove_source=</code>: Removes a source from the stream. The source will also be removed from the configuration file.</p></li>
-</ul>
 <dl class="describe code-definition">
 <dt class="sig sig-object">
-<code class="sig-name descname">Examples:</code></dt>
+<code class="sig-name descname">MQTT Commands</code></dt>
 <dd>
 <dl class="describe code-definition">
 <dt class="sig sig-object">
 <code class="sig-name descname">play</code></dt>
 <dd>
-<p>..code-block:: bash</p>
-<blockquote>
-<div><p>mosquitto_pub -h localhost -t <a href="#id1"><span class="problematic" id="id2">``</span></a>SPEAKER TOPIC` -m “play”</p>
-</div></blockquote>
+<p>Alters the player state to play the stream.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="s2">"play"</span>
+</code></pre></div></div>
+</dd></dl>
+<dl class="describe code-definition">
+<dt class="sig sig-object">
+<code class="sig-name descname">pause</code></dt>
+<dd>
+<p>Alters the player state to paused.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="s2">"pause"</span>
+</code></pre></div></div>
+</dd></dl>
+<dl class="describe code-definition">
+<dt class="sig sig-object">
+<code class="sig-name descname">stop</code></dt>
+<dd>
+<p>Stop the stream.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="s2">"stop"</span>
+</code></pre></div></div>
+</dd></dl>
+<dl class="describe code-definition">
+<dt class="sig sig-object">
+<code class="sig-name descname">mute</code></dt>
+<dd>
+<p>Mute the stream.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="s2">"mute"</span>
+</code></pre></div></div>
+</dd></dl>
+<dl class="describe code-definition">
+<dt class="sig sig-object">
+<code class="sig-name descname">unmute</code></dt>
+<dd>
+<p>Unmute the stream.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="s2">"unmute"</span>
+</code></pre></div></div>
+</dd></dl>
+<dl class="describe code-definition">
+<dt class="sig sig-object">
+<code class="sig-name descname">volume+</code></dt>
+<dd>
+<p>Increases the volume in 20.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="s2">"volume+"</span>
+</code></pre></div></div>
+</dd></dl>
+<dl class="describe code-definition">
+<dt class="sig sig-object">
+<code class="sig-name descname">volume-</code></dt>
+<dd>
+<p>Decreases the volume in 20.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="s2">"volume-"</span>
+</code></pre></div></div>
+</dd></dl>
+<dl class="describe code-definition">
+<dt class="sig sig-object">
+<code class="sig-name descname">volume=</code></dt>
+<dd>
+<p>Set the stream volume to a specific value.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The volume must be between 0 and 100 (VLC actually supports up to 200, but please don’t do that).</p>
+</div>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="s2">"volume=50"</span>
+</code></pre></div></div>
+</dd></dl>
+<dl class="describe code-definition">
+<dt class="sig sig-object">
+<code class="sig-name descname">source=</code></dt>
+<dd>
+<p>Changes the stream source.
+The source must be one of the sources defined in the configuration file.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="s2">"source=LabIoT Radio"</span>
+</code></pre></div></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use only the source <code class="docutils literal notranslate">name</code> to change sources.</p>
+</div>
+</dd></dl>
+<dl class="describe code-definition">
+<dt class="sig sig-object">
+<code class="sig-name descname">add_source=</code></dt>
+<dd>
+<p>Adds a new source to the stream.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The source will also be added to the configuration file.</p>
+</div>
+<p>Send a single string containing the source <code class="docutils literal notranslate">name</code>, stream <code class="docutils literal notranslate">type</code> and the source <code class="docutils literal notranslate">path</code>
+separated by a semicolon <code class="docutils literal notranslate">;</code>.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="se">\</span>
+<span class="s2">"add_source=NewRadio;WebRadio;http://streaming.radionomy.com/80s-Remix"</span>
+</code></pre></div></div>
+</dd></dl>
+<dl class="describe code-definition">
+<dt class="sig sig-object">
+<code class="sig-name descname">remove_source=</code></dt>
+<dd>
+<p>Removes a source from the stream.</p>
+<p>Send a single string containing the source <code class="docutils literal notranslate">name</code>.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>mosquitto_pub -h localhost -t %SPEAKER_TOPIC -m <span class="s2">"remove_source=NewRadio"</span>
+</code></pre></div></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The source will also be removed from the configuration file.</p>
+</div>
 </dd></dl>
 </dd></dl>
 </div>

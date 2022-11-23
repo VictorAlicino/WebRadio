@@ -525,64 +525,19 @@ The topic is defined in the configuration file and can be changed to whatever yo
 
 \begin{sphinxadmonition}{note}{Note:}
 \sphinxAtStartPar
-The configuration file is loaded when the client starts. If you change the configuration file, you must restart
+The configuration file is loaded when the client starts.
+If you change the configuration file, you must restart
 the client service.
 \end{sphinxadmonition}
 
 \sphinxAtStartPar
 The client can be controlled via the following commands:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{play}}: Alters the player state to play the stream.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{pause}}: Alters the player state to paused.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{stop}}: Stop the stream.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{mute}}: Mute the stream.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{unmute}}: Unmute the stream.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{volume+}}: Increases the volume in 20.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{volume\sphinxhyphen{}}}: Decreases the volume in 20.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{volume=}}: Alters the volume of the stream. The volume must be between 0 and 100.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{source=}}: Changes the stream source. The source must be one of the sources defined in the configuration file.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{add\_source=}}: Adds a new source to the stream. The source will also be added to the configuration file.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{remove\_source=}}: Removes a source from the stream. The source will also be removed from the configuration file.
-
-\end{itemize}
 
 
 \begin{fulllineitems}
 
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{Examples:}}}
+\pysigline{\sphinxbfcode{\sphinxupquote{MQTT~Commands}}}
 \pysigstopsignatures
 
 \begin{fulllineitems}
@@ -591,12 +546,200 @@ The client can be controlled via the following commands:
 \pysigline{\sphinxbfcode{\sphinxupquote{play}}}
 \pysigstopsignatures
 \sphinxAtStartPar
-..code\sphinxhyphen{}block:: bash
-\begin{quote}
+Alters the player state to play the stream.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+s2}{\PYGZdq{}play\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{pause}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Alters the player state to paused.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+s2}{\PYGZdq{}pause\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{stop}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Stop the stream.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+s2}{\PYGZdq{}stop\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{mute}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Mute the stream.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+s2}{\PYGZdq{}mute\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{unmute}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Unmute the stream.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+s2}{\PYGZdq{}unmute\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{volume+}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Increases the volume in 20.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+s2}{\PYGZdq{}volume+\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{volume\sphinxhyphen{}}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Decreases the volume in 20.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+s2}{\PYGZdq{}volume\PYGZhy{}\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{volume=}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Set the stream volume to a specific value.
+
+\begin{sphinxadmonition}{note}{Note:}
+\sphinxAtStartPar
+The volume must be between 0 and 100 (VLC actually supports up to 200, but please don’t do that).
+\end{sphinxadmonition}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+s2}{\PYGZdq{}volume=50\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{source=}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Changes the stream source.
+The source must be one of the sources defined in the configuration file.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+s2}{\PYGZdq{}source=LabIoT Radio\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\begin{sphinxadmonition}{note}{Note:}
+\sphinxAtStartPar
+Use only the source \sphinxcode{\sphinxupquote{name}} to change sources.
+\end{sphinxadmonition}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{add\_source=}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Adds a new source to the stream.
+
+\begin{sphinxadmonition}{note}{Note:}
+\sphinxAtStartPar
+The source will also be added to the configuration file.
+\end{sphinxadmonition}
 
 \sphinxAtStartPar
-mosquitto\_pub \sphinxhyphen{}h localhost \sphinxhyphen{}t {\color{red}\bfseries{}\textasciigrave{}\textasciigrave{}}SPEAKER TOPIC\textasciigrave{} \sphinxhyphen{}m “play”
-\end{quote}
+Send a single string containing the source \sphinxcode{\sphinxupquote{name}}, stream \sphinxcode{\sphinxupquote{type}} and the source \sphinxcode{\sphinxupquote{path}}
+separated by a semicolon \sphinxcode{\sphinxupquote{;}}.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+se}{\PYGZbs{}}
+\PYG{l+s+s2}{\PYGZdq{}add\PYGZus{}source=NewRadio;WebRadio;http://streaming.radionomy.com/80s\PYGZhy{}Remix\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{remove\_source=}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Removes a source from the stream.
+
+\sphinxAtStartPar
+Send a single string containing the source \sphinxcode{\sphinxupquote{name}}.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+mosquitto\PYGZus{}pub \PYGZhy{}h localhost \PYGZhy{}t \PYGZpc{}SPEAKER\PYGZus{}TOPIC \PYGZhy{}m \PYG{l+s+s2}{\PYGZdq{}remove\PYGZus{}source=NewRadio\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\begin{sphinxadmonition}{warning}{Warning:}
+\sphinxAtStartPar
+The source will also be removed from the configuration file.
+\end{sphinxadmonition}
 
 \end{fulllineitems}
 
