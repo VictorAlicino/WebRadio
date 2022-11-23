@@ -39,7 +39,43 @@ The configuration file is located in the `Client` directory and is called `confi
 
 The configuration file is a JSON file with the following structure:
 
-//TODO: Add configuration file structure
+.. code-block:: json
+
+    {
+        "mqtt_config": {
+            "server": "192.168.1.1",
+            "port": 1883, "user": null,
+            "password": null,
+            "topic": ""
+        },
+        "speaker_config": {
+            "name": "Speaker 1",
+            "volume": 70,
+            "mute": false,
+            "sources": [
+                {
+                    "name": "LabIoT Radio",
+                    "type": "WebRadio",
+                    "path": "http://192.168.1.106:8000/labiot-radio.ogg"
+                },
+                {
+                    "name": "Ambiente",
+                    "type": "WebRadio",
+                    "path": "http://us5.internet-radio.com:8201/stream?type=http&nocache=237663"
+                }
+            ]
+        }
+    }
+
+The ``mqtt_config`` section contains the configuration for the MQTT broker, the ``server`` and ``port`` are required.
+The ``user`` and ``password`` are optional, if they are not provided the script will try to connect to the broker
+without login. The ``topic`` is the MQTT topic that the script will subscribe to, it is optional.
+
+The ``speaker_config`` section contains the configuration for the listener, the ``name`` is the name of the speaker
+which will be used to identify it on the MQTT server. The ``volume`` is the volume of the player when it starts,
+mute also define whether the player will start muted or not. The ``sources`` is a list of sources that the player
+can choose from, the ``name`` is the name of the source, the ``type`` is the type of the source and the ``path``
+is the path to the source. Although the path is supposed to be an URL, it can be a local path to a file.
 
 
 Systemd service

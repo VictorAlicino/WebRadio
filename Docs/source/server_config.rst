@@ -47,7 +47,7 @@ After that you can restart Icecast to load de changes.
 
 
 NGINX
-~~~~~
+-----
 
 If you want to use NGINX as a reverse proxy, you can create a new NGINX configuration file for Icecast.
 
