@@ -16,7 +16,7 @@ packages and play the audio.
 .. note::
 
    This project is under active development and
-   comes with no garanties.
+   comes with no guaranties.
 
 .. toctree::
    :maxdepth: 3
